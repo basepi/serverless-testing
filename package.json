@@ -1,0 +1,1 @@
+{"name":"serverless-testing","description":"","version":"0.1.0","devDependencies":{"serverless-plugin-tracing":"^2.0.0","serverless-python-requirements":"^5.1.1"}}

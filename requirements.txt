@@ -1,0 +1,5 @@
+requests
+certifi
+git+git://github.com/basepi/apm-agent-python@lambda#egg=elastic-apm
+aws-xray-sdk
+urllib3
