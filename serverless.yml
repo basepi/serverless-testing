@@ -8,11 +8,21 @@ custom:
   pythonRequirements:
     dockerizePip: true
     usePoetry: false
+    invalidateCaches: true
+    useStaticCache: false
+    useDownloadCache: false
 
 provider:
   name: aws
   runtime: python3.8
   lambdaHashingVersion: '20201221'
+  environment:
+    ELASTIC_APM_LOG_LEVEL: "info"
+    ELASTIC_APM_SERVICE_NAME: serverless-testing
+    ELASTIC_APM_SERVER_URL: 'http://localhost:8200'
+    ELASTIC_APM_LAMBDA_APM_SERVER: 'https://f19b723ed01f4b6297af11e62f07663b.apm.us-east-1.aws.cloud.es.io:443'
+    ELASTIC_APM_SECRET_TOKEN: '<redacted>'
+    ELASTIC_APM_DATA_RECEIVER_TIMEOUT_SECONDS: '15'
 
 functions:
   hello:
@@ -21,6 +31,9 @@ functions:
       - http:
           path: /
           method: get
+      - s3: basepitestbucket
+      - sns: basepiwstesttopic
+      - sqs: arn:aws:sqs:us-east-1:268121251716:testqueue
 
 plugins:
   - serverless-python-requirements
