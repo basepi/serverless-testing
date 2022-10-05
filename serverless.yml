@@ -1,8 +1,8 @@
 org: basepi
-app: serverless-testing
-service: serverless-testing
+app: serverless-testing-basepi
+service: serverless-testing-basepi
 
-frameworkVersion: '2'
+frameworkVersion: "3"
 
 custom:
   pythonRequirements:
@@ -15,25 +15,22 @@ custom:
 provider:
   name: aws
   runtime: python3.8
-  lambdaHashingVersion: '20201221'
   environment:
-    ELASTIC_APM_LOG_LEVEL: "info"
-    ELASTIC_APM_SERVICE_NAME: serverless-testing
-    ELASTIC_APM_SERVER_URL: 'http://localhost:8200'
-    ELASTIC_APM_LAMBDA_APM_SERVER: 'https://f19b723ed01f4b6297af11e62f07663b.apm.us-east-1.aws.cloud.es.io:443'
-    ELASTIC_APM_SECRET_TOKEN: '<redacted>'
-    ELASTIC_APM_DATA_RECEIVER_TIMEOUT_SECONDS: '15'
+    ELASTIC_APM_SERVICE_NAME: serverless-testing-basepi
+    ELASTIC_APM_LAMBDA_APM_SERVER: "https://115e71c05a64444bb6f027072aa739e4.apm.us-central1.gcp.cloud.es.io:443"
+    ELASTIC_APM_SECRET_TOKEN: "<redacted>"
 
 functions:
   hello:
     handler: handler.hello
+    layers:
+      - arn:aws:lambda:us-east-1:267093732750:layer:elastic-apm-extension-ver-1-1-0-x86_64:1
     events:
       - http:
           path: /
           method: get
-      - s3: basepitestbucket
-      - sns: basepiwstesttopic
-      - sqs: arn:aws:sqs:us-east-1:268121251716:testqueue
+      - s3: basepitestbucket2
+      - sns: basepitestsnstopic
 
 plugins:
   - serverless-python-requirements
