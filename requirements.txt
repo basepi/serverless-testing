@@ -1,5 +1,5 @@
 requests
 certifi
-git+git://github.com/basepi/apm-agent-python@lambda#egg=elastic-apm
+git+https://github.com/basepi/apm-agent-python@lambdametrics#egg=elastic-apm
 aws-xray-sdk
 urllib3

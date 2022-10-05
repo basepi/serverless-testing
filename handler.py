@@ -2,7 +2,8 @@ import json
 import time
 
 import requests
-from elasticapm import capture_serverless, capture_span
+from elasticapm import capture_serverless, capture_span, get_client
+from elasticapm.metrics.base_metrics import MetricSet
 
 
 @capture_serverless()
@@ -13,7 +14,10 @@ def hello2(event, context):
 
 @capture_serverless()
 def hello(event, context):
+    metrics = get_client().metrics.register(MetricSet)
     time.sleep(0.15)
+
+    metrics.gauge("TheAnswer").val = 42
 
     _do_work()
 
